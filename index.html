@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Jutt Mehkma GC - Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+
+/* ================= RESET ================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+body{
+    background:#0d0d1a;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* ================= HEADER ================= */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 20px;
+    background:#111;
+    box-shadow:0 0 15px #00ffcc55;
+    flex-wrap:wrap;
+    gap:15px;
+}
+.logo-container{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+.logo-container h1{
+    font-size:clamp(22px,4vw,28px);
+    font-weight:bold;
+    background:linear-gradient(90deg,#00ffcc,#00c853);
+    -webkit-background-clip:text;
+    color:transparent;
+    text-shadow:0 0 6px #00ffcc;
+    transition:0.3s;
+}
+.logo-container h1:hover{
+    text-shadow:0 0 15px #00ffcc,0 0 25px #00c853;
+    transform: scale(1.05);
+}
+
+/* ================= NAV ================= */
+nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    justify-content:center;
+}
+nav a{
+    color:#00ffcc;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
+    font-size:clamp(14px,2.5vw,16px);
+}
+nav a:hover{color:#00c853;}
+
+/* ================= CONTAINER ================= */
+.container{
+    max-width:1200px;
+    margin:50px auto;
+    padding:0 20px;
+    text-align:center;
+}
+.container h1{
+    font-size:clamp(26px,6vw,40px);
+    margin-bottom:15px;
+    background:linear-gradient(90deg,#00ffcc,#00c853);
+    -webkit-background-clip:text;
+    color:transparent;
+    text-shadow:0 0 10px #00ffcc;
+}
+.container p{
+    font-size:clamp(15px,3vw,18px);
+    margin-bottom:30px;
+}
+
+/* ================= FRIEND CARDS ================= */
+#friendsContainer{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:20px;
+    width:100%;
+}
+.friend-card{
+    background:#111;
+    padding:15px;
+    border-radius:15px;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 0 15px #00ffcc55;
+    text-align:center;
+}
+.friend-card:hover{
+    transform:scale(1.05);
+    background:#00c853;
+    color:black;
+}
+.friend-card img{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    border:3px solid #00ffcc;
+    margin-bottom:10px;
+    object-fit:cover;
+}
+.friend-card h3{
+    margin:8px 0 5px 0;
+    font-size:18px;
+}
+.friend-card p{
+    font-size:14px;
+    color:#00ffcc;
+    word-break: break-word;
+}
+
+/* ================= MODAL ================= */
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.95);
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+    padding:20px;
+}
+.modal-content{
+    background:#111;
+    padding:20px;
+    border-radius:20px;
+    width:100%;
+    max-width:400px;
+    text-align:center;
+    box-shadow:0 0 25px #00ffcc;
+    position:relative;
+    animation:modalPop 0.4s ease;
+}
+@keyframes modalPop{
+    0%{transform:scale(0.5);opacity:0;}
+    100%{transform:scale(1);opacity:1;}
+}
+.close{
+    position:absolute;
+    top:10px;
+    right:15px;
+    cursor:pointer;
+    font-size:22px;
+    color:#00ffcc;
+}
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:10px;
+    background:#00c853;
+    color:white;
+    font-weight:bold;
+    margin-top:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+button:hover{
+    background:#00ffcc;
+    color:black;
+}
+
+/* ================= EXTRA SMALL DEVICES ================= */
+@media (max-width:480px){
+    header{
+        flex-direction:column;
+        text-align:center;
+    }
+    nav{
+        justify-content:center;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-container">
+    <h1>JUTT MEHKMA</h1>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="members.html">Members</a>
+    <a href="awards.html">Awards</a>
+  </nav>
+</header>
+
+<div class="container">
+<h1>🔥 WELCOME TO JUT MEHKMA GC 🔥</h1>
+<p>Click on a friend below to see their fun profile & Instagram ID 😎💥</p>
+
+<div id="friendsContainer"></div>
+</div>
+
+<!-- Profile Modal -->
+<div class="modal" id="profileModal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">×</span>
+<img id="friendImg" src="" style="width:120px;height:120px;border-radius:50%;border:3px solid #00ffcc;margin-bottom:15px;">
+<h2 id="friendName"></h2>
+<p id="friendFun"></p>
+<p id="friendID" style="color:#00ffcc;font-weight:bold;margin-top:10px;"></p>
+<button onclick="confettiBlast()">🎊 Confetti 🎊</button>
+</div>
+</div>
+
+<script>
+const friends=[
+{name:"Zain",fun:"Thora sa pagal hai 😂🔥",id:"@syedzada__.512",img:"zain.png"},
+{name:"Shahzaib",fun:"Bila mewo mewo hai 😹",id:"@shahzaib_jawad",img:"shezi.png"},
+{name:"Azan",fun:"Mastiyo mai 😎💥",id:"@azan__dev__code",img:"azan.png"},
+{name:"Zara",fun:"Moto oyee khambo hai 😜 Ye bache agwa karti hai",id:"@heheher67",img:"zara.png"},
+{name:"Ali",fun:"Ye ap ni gf ke sath busay hota DM mai 😏💌",id:"@ali_minhal.72",img:"ali.png"},
+{name:"Nor",fun:"Nor GC ki shan hai ✨ Atin bohuut kam but jab bhi atin maza ata 😂",id:"@durefatimah9",img:"nor.png"},
+{name:"Bilal",fun:"Bohuut bara banda hai kabhi ata kabhi nahi ata GC mai 💪🔥",id:"@bilzz_gondal",img:"bilal.png"},
+{name:"Parii",fun:"DM mai lagin rehti hain uncle ke sath 😹💅",id:"@itxpari3592",img:"pari.png"},
+{name:"Zoha Queen",fun:"bohuut busay month mai aik bar atin just 😂🔥",id:"@hehehehehehe__hehe",img:"queen.png"},];
+
+const container=document.getElementById("friendsContainer");
+friends.forEach(f=>{
+    let div=document.createElement("div");
+    div.className="friend-card";
+    div.innerHTML=`<img src="${f.img}" alt="${f.name}"><h3>${f.name}</h3><p>${f.id}</p>`;
+    div.onclick=()=>showProfile(f);
+    container.appendChild(div);
+});
+
+function showProfile(friend){
+    document.getElementById("friendImg").src=friend.img;
+    document.getElementById("friendName").innerText=friend.name;
+    document.getElementById("friendFun").innerText=friend.fun;
+    document.getElementById("friendID").innerText=friend.id;
+    document.getElementById("profileModal").style.display="flex";
+}
+
+function closeModal(){
+    document.getElementById("profileModal").style.display="none";
+}
+
+function confettiBlast(){
+    for(let i=0;i<50;i++){
+        let div=document.createElement("div");
+        div.style.position="fixed";
+        div.style.width="10px";
+        div.style.height="10px";
+        div.style.background="hsl("+Math.random()*360+",100%,50%)";
+        div.style.top="0";
+        div.style.left=Math.random()*100+"vw";
+        div.style.borderRadius="50%";
+        div.style.animation="fall "+(Math.random()*3+2)+"s linear forwards";
+        document.body.appendChild(div);
+        setTimeout(()=>div.remove(),4000);
+    }
+}
+</script>
+
+</body>
+</html>
